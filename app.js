@@ -3,6 +3,7 @@ const client = new Discord.Client();
 const disbut = require("discord-buttons");
 const { MessageButton, MessageActionRow } = disbut;
 
+
 const { arr_diff, posponeTimeout } = require("./utilities.js");
 const {
   getHelloLocalizedDescription,
@@ -11,7 +12,9 @@ const {
 
 disbut(client);
 
-const config = require("dotenv").config();
+//const config = require("dotenv").config();
+client.login(process.env.BOT_TOKEN);
+const POOL_TIME = process.env.POOL_TIME;
 
 const Roles = {
   // customer + lang member role
