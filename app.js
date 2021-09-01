@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const client = new Discord.Client();
+
 const disbut = require("discord-buttons");
 const { MessageButton, MessageActionRow } = disbut;
 
@@ -10,15 +10,20 @@ const {
   getHelloLocalizedAcceptation,
 } = require("./greetings.js");
 
-disbut(client);
+const env = require("dotenv").config();
 
-const env = require("dotenv");
-if(env){
-    env.config();
-    console.log(process.env);
+// if there is no error when fetching the .env file
+if(!(env.error != undefined)){
+    console.log(`Environment : ${process.env.NODE_ENV}`);
+}
+else{
+    console.log(`Environment : ${process.env.NODE_ENV}`);
 }
 
+const client = new Discord.Client();
+disbut(client);
 client.login(process.env.BOT_TOKEN);
+
 const POOL_TIME = process.env.POOL_TIME;
 
 const Roles = {
@@ -198,13 +203,6 @@ const postponeReactionClosure = (oldMember) => {
     params: [],
   });
 };
-
-client.on('messageReactionAdd', (reaction, user) => {
-    if (!reaction.message.author.id === user.id){
-        //Do whatever you like with it
-        console.log(reaction.name)
-    }
-});
 
 client.on("guildMemberUpdate", (oldMember, newMember) => {
   let diffRoles = getDiffRoles(oldMember, newMember, true);
