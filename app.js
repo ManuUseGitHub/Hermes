@@ -185,7 +185,7 @@ const getDiffRoles = (oldMember, newMember, useID = true) => {
 
 const postponeReactionClosure = (oldMember) => {
   const itimer = activity.pool3[oldMember.id];
-  posponeTimeout(itimer, config.parsed.POOL_TIME, {
+  posponeTimeout(itimer, POOL_TIME, {
     cb: () => {
       //console.log(`user id ${oldMember.id} removed from the pool`);
       delete activity.pool3[oldMember.id];
@@ -203,7 +203,7 @@ client.on("guildMemberUpdate", (oldMember, newMember) => {
     activity.pool3[oldMember.id] = {
       timer: setTimeout(() => {
         delete activity.pool3[oldMember.id];
-      }, config.parsed.POOL_TIME),
+      }, POOL_TIME),
     };
 
     let oldRoleIDs = buildRoleIDList(oldMember);
