@@ -12,7 +12,12 @@ const {
 
 disbut(client);
 
-//const config = require("dotenv").config();
+const env = require("dotenv");
+if(env){
+    env.config();
+    console.log(process.env);
+}
+
 client.login(process.env.BOT_TOKEN);
 const POOL_TIME = process.env.POOL_TIME;
 
@@ -193,6 +198,13 @@ const postponeReactionClosure = (oldMember) => {
     params: [],
   });
 };
+
+client.on('messageReactionAdd', (reaction, user) => {
+    if (!reaction.message.author.id === user.id){
+        //Do whatever you like with it
+        console.log(reaction.name)
+    }
+});
 
 client.on("guildMemberUpdate", (oldMember, newMember) => {
   let diffRoles = getDiffRoles(oldMember, newMember, true);
