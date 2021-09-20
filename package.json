@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix --ext .js,.jsx .",
-    "ugly": "uglifyjs --compress --mangle -o app.min.js --source-map \"root='.',url='app.min.js.map'\" -- app.js ",
+    "ugly": "uglifyjs --compress --mangle -o index.min.js --source-map \"root='.',url='index.min.js.map'\" -- index.js ",
     "watch": "nodemon --exec node index.js",
+    "watchmin": "nodemon --exec node index.min.js",
     "prod": "node app.min.js"
   },
   "author": "Jean Luc Emmanuel VERHANNEMAN",
