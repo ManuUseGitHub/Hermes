@@ -1,21 +1,23 @@
-function arr_diff(a1, a2) {
-  var a = [],
+/* eslint-disable no-undef */
+function arr_diff( a1 , a2 ) {
+  var a = [] ,
     diff = [];
 
-  for (var i = 0; i < a1.length; i++) {
-    a[a1[i]] = true;
+  var i = 0;
+  for ( i = 0; i < a1.length; i++ ) {
+    a[ a1[ i ] ] = true;
   }
 
-  for (var i = 0; i < a2.length; i++) {
-    if (a[a2[i]]) {
-      delete a[a2[i]];
+  for ( i = 0; i < a2.length; i++ ) {
+    if ( a[ a2[ i ] ] ) {
+      delete a[ a2[ i ] ];
     } else {
-      a[a2[i]] = true;
+      a[ a2[ i ] ] = true;
     }
   }
 
-  for (var k in a) {
-    diff.push(k);
+  for ( var k in a ) {
+    diff.push( k );
   }
 
   return diff;
@@ -27,29 +29,30 @@ function arr_diff(a1, a2) {
  * @param {number} durationMillis
  * @param {CbObject} cbObject
  */
-const posponeTimeout = (iTimer, durationMillis, cbObject) => {
-  if (iTimer.timer != null) {
+const posponeTimeout = ( iTimer , durationMillis , cbObject ) => {
+  if ( iTimer.timer != null ) {
+
     // clear the Timeout so the previous one is canceled and does not take effect
-    clearTimeout(iTimer.timer);
+    clearTimeout( iTimer.timer );
 
     // this is what to perform after the new timeout defined below
     const action = () => {
       const {
-        cb,
+        cb ,
 
         // if no params are passed through the cbObject,
         // set an empty list of params
-        params = [],
+        params = [] ,
       } = cbObject;
 
       // call the function with the given params
-      cb(...params);
+      cb( ...params );
     };
 
     // pass out a newer timeout to the same property.
     // And trigger the action after durationMillis duration.
-    iTimer.timer = setTimeout(action, durationMillis);
+    iTimer.timer = setTimeout( action , durationMillis );
   }
 };
 
-module.exports = { arr_diff, posponeTimeout };
+module.exports = { arr_diff , posponeTimeout };

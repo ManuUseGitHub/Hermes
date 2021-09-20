@@ -4,13 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --fix --ext .js,.jsx .",
+    "ugly": "uglifyjs --compress --mangle -o app.min.js --source-map \"root='.',url='app.min.js.map'\" -- app.js ",
+    "watch": "nodemon --exec node index.js",
+    "prod": "node app.min.js"
   },
   "author": "Jean Luc Emmanuel VERHANNEMAN",
   "license": "MIT",
   "dependencies": {
     "discord-buttons": "^4.0.0",
     "discord.js": "^12.5.3",
-    "dotenv": "^9.0.2"
+    "dotenv": "^9.0.2",
+    "nodemon": "^2.0.12",
+    "uglify-js": "^3.14.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint": "^7.32.0",
+    "typescript": "^4.4.3"
   }
 }

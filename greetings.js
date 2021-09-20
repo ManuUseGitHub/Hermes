@@ -1,13 +1,13 @@
-const getHelloLocalizedDescription = (role) => {
-    const lang = /^M-([a-z]{0,3})$/.exec(role);
+const getHelloLocalizedDescription = ( role ) => {
+    const lang = /^M-([a-z]{0,3})$/.exec( role );
 
-    if (!lang) {
+    if ( !lang ) {
         return "NOT TRANSLATABLE";
     }
 
     let result;
-    switch (lang[1]) {
-        case "fr":
+    switch ( lang[ 1 ] ) {
+        case "fr" :
             result = `Bonjour ! C'est un plaisir de vous compter parmi nous. Voulant assurer la bonne entente sur notre serveur, nous désirons analyser tout nouvel arrivant pour nous assurer que l'apprentissage de chacun se fasse dans les meilleures conditions.
 
 Nous vous avons mis en état d'attente. Vous allez être contacté par un membre de notre équipe dans votre langue ou en anglais afin de vérifier vos raisons de nous rejoindre.
@@ -17,7 +17,7 @@ Vous recevrez un message quand cela sera fait et à vous la joie de l'apprentiss
 A bientôt!`;
             break;
 
-        case "jp":
+        case "jp" :
             result = `こんにちは ！ どうぞよろしくお願いいたします。 サーバー上で良好な関係を確保したいので、新規参入者を分析して、すべての人の学習が最良の条件で行われるようにします。
 
 保留にします。 私たちのチームのメンバーから、あなたの言語または英語で、私たちに参加する理由を確認するための連絡があります。
@@ -27,7 +27,7 @@ A bientôt!`;
 また近いうちにお会いしましょう！`;
             break;
 
-            case "id":
+            case "id" :
                 result = `Halo ! Ini adalah kesenangan untuk memiliki Anda dengan kami. Ingin memastikan hubungan baik di server kami, kami ingin menganalisis setiap pendatang baru untuk memastikan bahwa pembelajaran setiap orang berlangsung dalam kondisi terbaik.
 
 Kami menahan Anda. Anda akan dihubungi oleh anggota tim kami untuk memverifikasi alasan Anda bergabung dengan kami.
@@ -36,7 +36,7 @@ Anda akan menerima pesan setelah selesai dan kegembiraan belajar adalah milik An
             
 Sampai berjumpa lagi!`;
                 break;
-        default:
+        default :
             result = `Hello ! It is a pleasure to have you with us. Wanting to ensure good relations on our server, we want to analyze any newcomer to ensure that everyone's learning takes place in the best conditions.
 
 We put you on hold. You will be contacted by a member of our team to verify your reasons for joining us.
@@ -47,18 +47,18 @@ See you soon!`;
             break;
     }
     return result;
-}
+};
 
-const getHelloLocalizedAcceptation = (role) => {
-    const lang = /^M-([a-z]{0,3})$/.exec(role);
+const getHelloLocalizedAcceptation = ( role ) => {
+    const lang = /^M-([a-z]{0,3})$/.exec( role );
 
-    if (!lang) {
+    if ( !lang ) {
         return "NOT TRANSLATABLE";
     }
 
     let result;
-    switch (lang[1]) {
-        case "fr":
+    switch ( lang[ 1 ] ) {
+        case "fr" :
             result = `Hourra ! Votre adhésion sur **ziQuatorze** a été validée par un modérateur. Vous pouvez maintenant profiter plainement du server.
 
 Premièrement, rendez vous dans le channel <#837165560873484359> et choisissez:
@@ -67,7 +67,7 @@ Premièrement, rendez vous dans le channel <#837165560873484359> et choisissez:
 - 3: les thématiques du propriétaire du server (optionel)`;
             break;
 
-        case "jp":
+        case "jp" :
             result = `やったー！ **ziQuatorze**のメンバーシップは、モデレーターによって検証されています。 これで、サーバーを十分に楽しむことができます。
 
 まず、チャンネル <#837165777219223572> にアクセスして、次を選択します。
@@ -76,7 +76,7 @@ Premièrement, rendez vous dans le channel <#837165560873484359> et choisissez:
 -3：サーバー所有者のテーマ（オプション）`;
             break;
 
-        case "id":
+        case "id" :
             result = `Hore! Keanggotaan Anda di **ziQuatorze** telah divalidasi oleh moderator. Anda sekarang dapat menikmati server sepenuhnya.
 
 Pertama, buka saluran <#874032476077584404> dan pilih:
@@ -85,7 +85,7 @@ Pertama, buka saluran <#874032476077584404> dan pilih:
 - 3: tema pemilik server (opsional)`;    
         break;
 
-        default:
+        default :
             result = `Hooray! Your membership on **ziQuatorze** has been validated by a moderator. You can now fully enjoy the server.
 
 First, go to the channel <#831183859588268052> and choose:
@@ -95,6 +95,6 @@ First, go to the channel <#831183859588268052> and choose:
             break;
     }
     return result;
-}
+};
 
-module.exports = { getHelloLocalizedDescription,getHelloLocalizedAcceptation };
+module.exports = { getHelloLocalizedDescription , getHelloLocalizedAcceptation };
