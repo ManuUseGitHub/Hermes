@@ -1,7 +1,10 @@
+const env = require( "dotenv" ).config();
+
 const Discord = require( "discord.js" );
 
 const disbut = require( "discord-buttons" );
 
+const internalize = require( "./internalization" );
 const { MessageButton , MessageActionRow } = disbut;
 const { Roles , _Guild } = require( "./ZiQuatorze/Resources" );
 
@@ -11,9 +14,7 @@ const { getHelloLocalizedDescription , getHelloLocalizedAcceptation  } = require
 const Adhesion = require( "./ZiQuatorze/Adhesion" );
 const Users = require( "./ZiQuatorze/Users" );
 
-const env = require( "dotenv" ).config();
 console.log( `Environment : ${process.env.NODE_ENV}` );
-
 
 const client = new Discord.Client();
 disbut( client );
@@ -22,6 +23,7 @@ const Resources = { client , roles : Roles , guild : _Guild };
 
 Adhesion.init( Resources );
 Users.init( Resources );
+internalize.init( Resources );
 
 const POOL_TIME = process.env.POOL_TIME;
 
@@ -194,9 +196,7 @@ const validateNewUser = ( roleChanges ) => {
       );
 
       // MESSAGING THE USER
-      const translatedMessage = getHelloLocalizedAcceptation(
-        newLangRoles[ 0 ] ,
-      );
+      const translatedMessage = internalize.tu( "accepted_adhesion" , oldMember );
 
       const user = client.users.cache.get( member._new.user.id );
 
@@ -348,11 +348,10 @@ client.on( "guildMemberUpdate" , ( oldMember , newMember ) => {
         !rolesArr.includes( Roles.V_R.id ) &&
         newLangRoles.length < 2
       ) {
-        const translatedMessage = getHelloLocalizedDescription(
-          newLangRoles[ 0 ] ,
-        );
+        
+        const translatedMessage = internalize.tuid( "greetings" , newMember );
 
-        if ( "NOT TRANSLATABLE" != translatedMessage ) {
+        if ( translatedMessage ) {
           newMember.roles.add(
             Roles.PENDING_R.id ,
             "Has the pending role" ,

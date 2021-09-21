@@ -5,8 +5,7 @@ class Users {
     this.resources = resources;
   }
   getUserFromItsId( id ) {
-    const { client } = this.resources;
-
+    const { client } = this.resources;    
     const theGuild = client.guilds.cache.get( _Guild.G_ID.id );
 
     return theGuild.members.cache
