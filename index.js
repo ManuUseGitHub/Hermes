@@ -4,7 +4,8 @@ const Discord = require( "discord.js" );
 
 const disbut = require( "discord-buttons" );
 
-const internalize = require( "./internalization" );
+const Internalize = require( "./internalization" );
+
 const { MessageButton , MessageActionRow } = disbut;
 const { Roles , _Guild } = require( "./ZiQuatorze/Resources" );
 
@@ -13,6 +14,7 @@ const { getHelloLocalizedDescription , getHelloLocalizedAcceptation  } = require
 
 const Adhesion = require( "./ZiQuatorze/Adhesion" );
 const Users = require( "./ZiQuatorze/Users" );
+const internalize = new Internalize( Users );
 
 console.log( `Environment : ${process.env.NODE_ENV}` );
 
@@ -196,7 +198,7 @@ const validateNewUser = ( roleChanges ) => {
       );
 
       // MESSAGING THE USER
-      const translatedMessage = internalize.tu( "accepted_adhesion" , oldMember );
+      const translatedMessage = internalize.tu( "accepted_adhesion" , member._new );
 
       const user = client.users.cache.get( member._new.user.id );
 
@@ -349,7 +351,9 @@ client.on( "guildMemberUpdate" , ( oldMember , newMember ) => {
         newLangRoles.length < 2
       ) {
         
-        const translatedMessage = internalize.tuid( "greetings" , newMember );
+        
+        
+          const translatedMessage = internalize.tu( "greetings" , newMember );
 
         if ( translatedMessage ) {
           newMember.roles.add(
@@ -388,7 +392,16 @@ client.on( "guildMemberUpdate" , ( oldMember , newMember ) => {
 } );
 
 client.on( "message" , ( message ) => {
+  if ( message.content == "!help" ) {
+    return;
+  }
   if ( message.content == "z14 all" ) {
+    if( message.channel.id != _Guild.C_NEW_COMMERS.id ){
+      const response = internalize.tuid( "wrong_channel_for_command" , message.author.id , [ message.author.id , _Guild.C_NEW_COMMERS.id ] );
+      
+      message.channel.send( response );
+      
+    }
     Adhesion.updatePendingList();
     message.delete();
   } else if ( /^z14 all .*/.test( message.content ) ) {
