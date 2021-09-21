@@ -13,10 +13,10 @@ const decompress = require( "gulp-decompress" );
 
 function download ( cb ) {
     wget( {
-        url : "https://localise.biz:443/api/export/archive/json.zip?key=iLHvUE8pLGj-NxC4zBkjwxvZM-kHRaSG" ,
+        url : "https://localise.biz/api/export/archive/json.zip?key=zwMNJmbLmYOtSMGaypxkYY6BUg5pLsf3" ,
 
         // destination path or path with filenname, default is ./
-        dest : "./resources/lang/translations.zip" ,
+        dest : "./ZiQuatorze/lang/translations.zip" ,
 
         // duration to wait for request fulfillment in milliseconds, default is 2 seconds
         timeout : 2000
@@ -41,13 +41,13 @@ function download ( cb ) {
 }
 
 function unzip ( cb ){
-    gulp.src( "./resources/lang/translations.zip" )
+    gulp.src( "./ZiQuatorze/lang/translations.zip" )
         .pipe(
             decompress( {
                 strip : 0
             } )
         )
-        .pipe( gulp.dest( "./resources/lang" ) );
+        .pipe( gulp.dest( "./ZiQuatorze/lang" ) );
 
     setTimeout( function(){
         cb();
@@ -55,15 +55,15 @@ function unzip ( cb ){
 }
 
 function outoflocals( cb ){
-    gulp.src( "./resources/lang/radiosq-json-archive/locales/**/*.json" )
+    gulp.src( "./ZiQuatorze/lang/ziquatorze-json-archive/locales/**/*.json" )
         .pipe( rename( function ( path ) {
 
-            const m = /^radiosq-(.*)/.exec( path.basename );
+            const m = /^ziquatorze-(.*)/.exec( path.basename );
                 path.dirname = "";
             if( m )
                 path.basename = m[ 1 ];
         } ) )
-        .pipe( gulp.dest( "./resources/lang" ) );
+        .pipe( gulp.dest( "./ZiQuatorze/lang" ) );
 
     setTimeout( function(){
         cb();
@@ -71,21 +71,12 @@ function outoflocals( cb ){
 }
 
 function clear( cb ){
-    del( "./resources/lang/**/radiosq-*" );
-    del( "./resources/lang/translations.zip" );
+    del( "./ZiQuatorze/lang/**/ziquatorze-*" );
+    del( "./ZiQuatorze/lang/translations.zip" );
     cb();
 }
 
-const defaultTask = series ( download , unzip , outoflocals , clear , function( cb ){
-    gulp
-
-        // open the index file then write it
-        .src( "./resources/views/radio/pages/Home/index.blade.php" )
-
-        // in the same location to trigger the browserSync
-        .pipe( gulp.dest( "./resources/views/radio/pages/Home" ) );
-    cb();
-} );
+const defaultTask = series ( download , unzip , outoflocals , clear );
 
 
 exports.default = defaultTask;

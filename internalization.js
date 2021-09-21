@@ -4,9 +4,9 @@ const Users = require( "./ZiQuatorze/Users/index.js" );
 const DEFAULT_LANG = process.env.DEFAULT_LANG;
 
 const langs = {};
-const langFolder = "./lang";
+const langFolder = "./ZiQuatorze/lang";
 fs.readdirSync( langFolder ).forEach( ( langFile ) => {
-    const lang = langFile.split( ".js" )[ 0 ];
+    const lang = langFile.split( ".js" )[ 0 ].replace( "ja" , "jp" );
     langs[ lang ] = require( `${langFolder}/${langFile}` );
 } );
 
