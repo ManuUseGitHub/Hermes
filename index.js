@@ -10,7 +10,7 @@ const { MessageButton , MessageActionRow } = disbut;
 const { Roles , _Guild } = require( "./ZiQuatorze/Resources" );
 
 const { arr_diff , posponeTimeout , packetClosure } = require( "./utilities.js" );
-const { getHelloLocalizedDescription , getHelloLocalizedAcceptation  } = require( "./greetings.js" );
+const { getHelloLocalizedDescription , getHelloLocalizedAcceptation } = require( "./greetings.js" );
 
 const Adhesion = require( "./ZiQuatorze/Adhesion" );
 const Users = require( "./ZiQuatorze/Users" );
@@ -68,11 +68,11 @@ function removeValidRoles( newMember ) {
 const discardUser = ( id ) => {
 
   const user = Users.getUserFromItsId( id );
-  
-  user.roles.set( [ ] );
-  
+
+  user.roles.set( [] );
+
   setTimeout( () => {
-    Adhesion.updatePendingList( );
+    Adhesion.updatePendingList();
   } , 1000 );
 };
 
@@ -96,7 +96,7 @@ const addRole = ( id , button ) => {
   } );
 
   setTimeout( () => {
-    Adhesion.updatePendingList( );
+    Adhesion.updatePendingList();
   } , 2000 );
 };
 
@@ -191,7 +191,7 @@ const validateNewUser = ( roleChanges ) => {
         id : Roles.V_ID_R.id ,
         en : Roles.V_EN_R.id
       } )[ lang[ 1 ] ];
-      
+
       member._new.roles.add(
         validatedLanguage ,
         "language validation defined" ,
@@ -350,10 +350,10 @@ client.on( "guildMemberUpdate" , ( oldMember , newMember ) => {
         !rolesArr.includes( Roles.V_R.id ) &&
         newLangRoles.length < 2
       ) {
-        
-        
-        
-          const translatedMessage = internalize.tu( "greetings" , newMember );
+
+
+
+        const translatedMessage = internalize.tu( "greetings" , newMember );
 
         if ( translatedMessage ) {
           newMember.roles.add(
@@ -369,9 +369,9 @@ client.on( "guildMemberUpdate" , ( oldMember , newMember ) => {
             );
 
           user.send( embedMessage );
-          
-          setTimeout( () => { Adhesion.updatePendingList( ); } , 1000 );
-          
+
+          setTimeout( () => { Adhesion.updatePendingList(); } , 1000 );
+
         }
       }
     }
@@ -396,11 +396,11 @@ client.on( "message" , ( message ) => {
     return;
   }
   if ( message.content == "z14 all" ) {
-    if( message.channel.id != _Guild.C_NEW_COMMERS.id ){
+    if ( message.channel.id != _Guild.C_NEW_COMMERS.id ) {
       const response = internalize.tuid( "wrong_channel_for_command" , message.author.id , [ message.author.id , _Guild.C_NEW_COMMERS.id ] );
-      
+
       message.channel.send( response );
-      
+
     }
     Adhesion.updatePendingList();
     message.delete();

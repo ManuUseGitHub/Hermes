@@ -1,2 +1,2 @@
 worker: node index.js
-worker: node index.min.js
+workermin: node index.min.js
