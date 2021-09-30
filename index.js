@@ -1,19 +1,20 @@
 const env = require( "dotenv" ).config();
 
 const Discord = require( "discord.js" );
+const { MessageEmbed } = Discord;
 
 const disbut = require( "discord-buttons" );
+const sem = require( "./ZiQuatorze/Semaphored" );
 
 const Internalize = require( "./internalization" );
-
 const { MessageButton , MessageActionRow } = disbut;
 const { Roles , _Guild } = require( "./ZiQuatorze/Resources" );
 
 const { arr_diff , posponeTimeout , packetClosure } = require( "./utilities.js" );
-const { getHelloLocalizedDescription , getHelloLocalizedAcceptation } = require( "./greetings.js" );
 
 const Adhesion = require( "./ZiQuatorze/Adhesion" );
 const Users = require( "./ZiQuatorze/Users" );
+const page = require( "./page" );
 const internalize = new Internalize( Users );
 
 console.log( `Environment : ${process.env.NODE_ENV}` );
@@ -108,28 +109,15 @@ const removeRoles = ( id , button ) => {
   } );
 };
 
-const poolActionForId = ( pool , id , cb ) => {
-  if ( pool[ id ] != null ) {
-    postponeReactionClosure( id , pool );
-  } else {
-    pool[ id ] = {
-      timer : setTimeout( () => {
-        delete pool[ id ];
-      } , Number.parseInt( POOL_TIME ) ) ,
-    };
-
-    cb();
-  }
-};
-
 client.on( "clickButton" , async ( button ) => {
   const actionAndUserId = /^((?:-?[a-zA-Z\d])+).*-(\d+)/.exec( button.id );
   const action = actionAndUserId[ 1 ];
   const id = actionAndUserId[ 2 ];
 
+
   // use the pooling to make sure we execute the action once because
   // some event are fired more than once
-  poolActionForId( activity.buttonPool , id , () => {
+  sem.poolActionForId( activity.buttonPool , id , () => {
     switch ( action.toLowerCase() ) {
       case "add-role" :
         addRole( id , button );
@@ -164,16 +152,6 @@ const getDiffRoles = ( oldMember , newMember , useID = true ) => {
       return `${useID ? id : name}`;
     } ) ,
   );
-};
-
-const postponeReactionClosure = ( id , pool ) => {
-  const itimer = pool[ id ];
-  posponeTimeout( itimer , POOL_TIME , {
-    cb : () => {
-      delete pool[ id ];
-    } ,
-    params : [] ,
-  } );
 };
 
 const validateNewUser = ( roleChanges ) => {
@@ -270,7 +248,7 @@ client.on( "raw" , ( packet ) => {
 client.on( "guildMemberUpdate" , ( oldMember , newMember ) => {
   let diffRoles = getDiffRoles( oldMember , newMember , true );
 
-  poolActionForId( activity.userPool , oldMember.id , () => {
+  sem.poolActionForId( activity.userPool , oldMember.id , () => {
     let oldRoleIDs = buildRoleIDList( oldMember );
     let newRoleIDs = buildRoleIDList( newMember );
 
@@ -394,6 +372,85 @@ client.on( "guildMemberUpdate" , ( oldMember , newMember ) => {
 client.on( "message" , ( message ) => {
   if ( message.content == "!help" ) {
     return;
+  }
+
+  if ( message.content == "z13" ) {
+    message.delete();
+    const x = 2; 
+    message.channel.messages.fetch( { limit : x } ).then( ( lasts ) => {
+
+      //console.log( lasts );
+      lasts.map( m => {
+        if( m.embeds.length ){
+          if( /.+\s(irregular verbs)/.test( m.embeds[ 0 ].title ) ){
+            console.log( m.id , m.content , m.embeds );
+          }
+        }
+        
+      } );
+    } );
+    
+    const cv = require( "./ZiQuatorze/assets/Verbs/commons.json" ).verbs;
+
+    const addFieldsToEmbed = ( cv , embedInitCB , offset = 16 , embeds = [] , p = 0 ) => {
+      let i = p;
+      let t = offset;
+      const length = cv.length;
+
+      if ( i + offset > length ) {
+        t = length % offset;
+      }
+      if ( !cv[ i ] ) {
+        return embeds;
+      }
+      let j;
+
+      const newEmbed = new MessageEmbed();
+
+      // set Title, description and footer etc.
+      embedInitCB( newEmbed );
+
+      for ( ; i < length; i += 2 ) {
+        j = i + 1;
+
+        let first = cv[ i ];
+        let second = cv[ j ];
+
+        // replace cv j by an object with only spaces as info;
+        if ( !cv[ j ] ) {
+          second = { inf : "\u200B" , part : "\u200B" , pret : "\u200B" };
+        }
+
+        newEmbed.addFields(
+
+          //{ name : `verbe ${i}` , value : "vocal : https://google.com" , inline : false } ,
+          { name : first.inf , value : second.inf , inline : true } ,
+          { name : first.pret , value : second.pret , inline : true } ,
+          { name : first.part , value : second.part , inline : true } ,
+        );
+      }
+
+      embeds.push( newEmbed );
+
+      return addFieldsToEmbed( cv , embedInitCB , t , embeds , p + offset );
+
+    };
+
+    const embeds = addFieldsToEmbed( cv , ( embed ) => {
+
+      // inside a command, event listener, etc.
+      embed
+        .setColor( "#0099ff" )
+        .setTitle( "Common irregular verbs" )
+        .setDescription( "Some title" )
+        .setFooter( "Some footer text here" , "https://i.imgur.com/AfFp7pu.png" )
+        .setTimestamp();
+    } , 14 );
+
+    page.main( { embeds , message } );
+
+    //message.channel.send( exampleEmbed );
+
   }
   if ( message.content == "z14 all" ) {
     if ( message.channel.id != _Guild.C_NEW_COMMERS.id ) {

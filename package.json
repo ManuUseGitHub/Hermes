@@ -8,6 +8,7 @@
     "lint": "eslint --fix --ext .js,.jsx .",
     "ugly": "uglifyjs --compress --mangle -o index.min.js --source-map \"root='.',url='index.min.js.map'\" -- index.js ",
     "watch": "nodemon --exec node index.js",
+    "watchmysql": "nodemon --exec node test.mysql.js --ignore assets/",
     "watchmin": "nodemon --exec node index.min.js",
     "prod": "node app.min.js"
   },
@@ -21,6 +22,7 @@
     "gulp": "^4.0.2",
     "gulp-decompress": "^3.0.0",
     "gulp-rename": "^2.0.0",
+    "mysql": "^2.18.1",
     "node-wget": "^0.4.3",
     "nodemon": "^2.0.12",
     "uglify-js": "^3.14.2"
