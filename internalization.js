@@ -47,6 +47,14 @@ class Internalization {
         return this.tr( key , role , format );
     };
 
+    trn( key , roleid , format = [] ) {
+        const { client , guild } = this.ressources; 
+        const theGuild = client.guilds.cache.get( guild.G_ID.id );
+
+        let role = theGuild.roles.cache.find( r => r.id === roleid );
+        return this.tr( key , role.name , format );
+    }
+
     tuid( key , userId , format = [] ) {
         const user = this.users.getUserFromItsId( userId );
         return this.tu( key , user , format );

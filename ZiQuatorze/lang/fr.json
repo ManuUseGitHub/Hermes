@@ -1,5 +1,10 @@
 {
     "accepted_adhesion": "Hourra ! Votre adhésion sur **ziQuatorze** a été validée par un modérateur. Vous pouvez maintenant profiter plainement du server.\n\nPremièrement, rendez vous dans le channel <#837165560873484359> et choisissez:\n- 1: l'îcone qui correspond à votre langue maternelle\n- 2: les autres îcones des langues qui vous intéressents\n- 3: les thématiques du propriétaire du server (optionel)",
     "greetings": "Bonjour ! C'est un plaisir de vous compter parmi nous. Voulant assurer la bonne entente sur notre serveur, nous désirons analyser tout nouvel arrivant pour nous assurer que l'apprentissage de chacun se fasse dans les meilleures conditions.\n\n    Nous vous avons mis en état d'attente. Vous allez être contacté par un membre de notre équipe dans votre langue ou en anglais afin de vérifier vos raisons de nous rejoindre.\n \n    Vous recevrez un message quand cela sera fait et à vous la joie de l'apprentissage ! :) !\n                \n    A bientôt!",
-    "wrong_channel_for_command": "Cher.e <@{0}>, vous ne pouvez pas utiliser cette commande ici ... essayez de lancer cette commande dans le channel <#{1}> ."
+    "wrong_channel_for_command": "Cher.e <@{0}>, vous ne pouvez pas utiliser cette commande ici ... essayez de lancer cette commande dans le channel <#{1}> .",
+    "to abide": "rester/tolérer/demeurer",
+    "to arise": "surgir survenir",
+    "to awake": "se réveiller",
+    "to be": "être",
+    "to bear": "supporter"
 }

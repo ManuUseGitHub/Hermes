@@ -1,5 +1,10 @@
 {
     "accepted_adhesion": "Hooray! Your membership on **ziQuatorze** has been validated by a moderator. You can now fully enjoy the server.\n\n    First, go to the channel <#831183859588268052> and choose:\n    - 1: the icon that corresponds to your mother tongue\n    - 2: the other icons of the languages that interest you\n    - 3: the themes of the server owner (optional)",
     "greetings": "Hello ! It is a pleasure to have you with us. Wanting to ensure good relations on our server, we want to analyze any newcomer to ensure that everyone's learning takes place in the best conditions.\n\nWe put you on hold. You will be contacted by a member of our team to verify your reasons for joining us.\n                \nYou will receive a message when it is done and the joy of learning is yours! :)!\n                \nSee you soon!",
-    "wrong_channel_for_command": "Dear <@{0}>, you can't use this command here ... try running this command in channel <#{1}> ."
+    "wrong_channel_for_command": "Dear <@{0}>, you can't use this command here ... try running this command in channel <#{1}> .",
+    "to abide": "",
+    "to arise": "",
+    "to awake": "",
+    "to be": "",
+    "to bear": ""
 }

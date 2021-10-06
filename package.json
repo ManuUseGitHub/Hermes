@@ -10,7 +10,22 @@
     "watch": "nodemon --exec node index.js",
     "watchmysql": "nodemon --exec node test.mysql.js --ignore assets/",
     "watchmin": "nodemon --exec node index.min.js",
-    "prod": "node app.min.js"
+    "prod": "node app.min.js",
+
+    "getverbs" : "node test.mysql.js --writeFile true",
+
+    "commonsverbs" : "npm run getverbs -- --type commons",
+    "rareverbs" : "npm run getverbs -- --type rare",
+
+    "uniqueverbs" : "npm run getverbs -- --type unique",
+    "xxxverbs" : "npm run getverbs -- --type x-x-x",
+    "xxedxedverbs" : "npm run getverbs -- --type x-xed-xed",
+    "xyxverbs" : "npm run getverbs -- --type x-y-x",
+    "xyx+verbs" : "npm run getverbs -- --type x-y-x+",
+    "xyxenverbs" : "npm run getverbs -- --type x-y-xen",
+    "xyyverbs" : "npm run getverbs -- --type x-y-y",
+    "xyyenverbs" : "npm run getverbs -- --type x-y-yen",
+    "xyzverbs" : "npm run getverbs -- --type x-y-z"
   },
   "author": "Jean Luc Emmanuel VERHANNEMAN",
   "license": "MIT",
